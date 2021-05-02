@@ -98,6 +98,14 @@ import UIKit
         didSet { setNeedsLayout() }
     }
     
+    @IBInspectable public var segmentBorderColor = UIColor.clear {
+        didSet { applySegments(shouldResetIndex: false) }
+    }
+    
+    @IBInspectable public var segmentBorderWidth: CGFloat = 0.0 {
+        didSet { applySegments(shouldResetIndex: false) }
+    }
+    
     /// The duration of the animation of an index change. Defaults to `0.3`.
     @IBInspectable public var animationDuration: TimeInterval = 0.3
     
@@ -417,6 +425,8 @@ import UIKit
         for segment in segments {
             segment.normalView.clipsToBounds = true
             segment.normalView.isAccessibilityElement = false
+            segment.normalView.layer.borderWidth = segmentBorderWidth
+            segment.normalView.layer.borderColor = segmentBorderColor.cgColor
             
             segment.selectedView.clipsToBounds = true
             
