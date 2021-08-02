@@ -31,6 +31,15 @@ open class LabelSegment: BetterSegmentedControlSegment {
             attrs[NSAttributedString.Key.foregroundColor] = selectedTextColor == nil ? DefaultValues.selectedTextColor : selectedTextColor!
             return attrs
         }
+        
+        static let zeroPaddings = Paddings(top: 0, right: 0, bottom: 0, left: 0)
+    }
+    
+    public struct Paddings {
+        let top: CGFloat
+        let right: CGFloat
+        let bottom: CGFloat
+        let left: CGFloat
     }
     
     // MARK: Properties
@@ -49,8 +58,11 @@ open class LabelSegment: BetterSegmentedControlSegment {
     private let numberOfLines: Int
     private let accessibilityIdentifier: String?
     
+    private let paddings: Paddings
+    
     // MARK: Lifecycle
     public init(text: String? = nil,
+                paddings: Paddings? = nil,
                 numberOfLines: Int = 1,
                 normalBackgroundColor: UIColor? = nil,
                 normalFont: UIFont? = nil,
@@ -62,6 +74,7 @@ open class LabelSegment: BetterSegmentedControlSegment {
                 selectedAttributes: [NSAttributedString.Key: Any]? = nil,
                 accessibilityIdentifier: String? = nil) {
         self.text = text
+        self.paddings = paddings ?? DefaultValues.zeroPaddings
         self.numberOfLines = numberOfLines
         self.normalBackgroundColor = normalBackgroundColor ?? DefaultValues.normalBackgroundColor
         self.normalFont = normalFont ?? DefaultValues.normalFont
@@ -101,7 +114,13 @@ open class LabelSegment: BetterSegmentedControlSegment {
                           textColor: UIColor,
                           attributes: [NSAttributedString.Key: Any],
                           accessibilityIdentifier: String?) -> UILabel {
-        let label = UILabel()
+        
+        let label = PaddingLabel()
+        label.paddingTop = paddings.top
+        label.paddingRight = paddings.right
+        label.paddingBottom = paddings.bottom
+        label.paddingLeft = paddings.left
+        
         label.text = text
         label.numberOfLines = numberOfLines
         label.backgroundColor = backgroundColor
@@ -117,6 +136,7 @@ open class LabelSegment: BetterSegmentedControlSegment {
 
 public extension LabelSegment {
     class func segments(withTitles titles: [String],
+                        paddings: Paddings? = nil,
                         numberOfLines: Int = 1,
                         normalBackgroundColor: UIColor? = nil,
                         normalFont: UIFont? = nil,
@@ -128,6 +148,7 @@ public extension LabelSegment {
                         selectedAttributes: [NSAttributedString.Key: Any]? = nil) -> [BetterSegmentedControlSegment] {
         titles.map {
             LabelSegment(text: $0,
+                         paddings: paddings,
                          numberOfLines: numberOfLines,
                          normalBackgroundColor: normalBackgroundColor,
                          normalFont: normalFont,
