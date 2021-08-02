@@ -36,10 +36,17 @@ open class LabelSegment: BetterSegmentedControlSegment {
     }
     
     public struct Paddings {
-        let top: CGFloat
-        let right: CGFloat
-        let bottom: CGFloat
-        let left: CGFloat
+        public let top: CGFloat
+        public let right: CGFloat
+        public let bottom: CGFloat
+        public let left: CGFloat
+        
+        public init(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
+            self.top = top
+            self.right = right
+            self.bottom = bottom
+            self.left = left
+        }
     }
     
     // MARK: Properties
