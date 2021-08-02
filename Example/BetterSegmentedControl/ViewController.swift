@@ -43,6 +43,19 @@ class ViewController: UIViewController {
                                                   normalTextColor: .white,
                                                   selectedTextColor: UIColor(red: 0.92, green: 0.29, blue: 0.15, alpha: 1.00))
         
+        control2.backgroundColor = .black
+        control2.indicatorView.backgroundColor = .black
+        control2.indicatorViewBorderWidth = 2.0
+        control2.indicatorViewBorderColor = UIColor(red: 0.92, green: 0.29, blue: 0.15, alpha: 1.00)
+        
+        control2.indicatorViewInset = 0
+        control2.animationDuration = 0
+        control2.cornerRadius = 6
+        control2.segmentSpacing = 8
+        control2.segmentBorderColor = .gray
+        control2.segmentBorderWidth = 2.0
+        
+        
         // Control 3: Many options
         control3.segments = LabelSegment.segments(withTitles: ["One", "Two", "Three", "Four", "Five"],
                                                   normalFont: .systemFont(ofSize: 14.0),
