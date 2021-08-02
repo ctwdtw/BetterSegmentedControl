@@ -5,9 +5,8 @@
 //  Created by Paul Lee on 2021/8/2.
 //
 
-import Foundation
+#if canImport(UIKit)
 import UIKit
-
 @IBDesignable
 class PaddingLabel: UILabel {
     var textEdgeInsets = UIEdgeInsets.zero {
@@ -49,3 +48,4 @@ class PaddingLabel: UILabel {
         get { return textEdgeInsets.bottom }
     }
 }
+#endif
