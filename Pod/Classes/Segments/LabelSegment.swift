@@ -67,10 +67,13 @@ open class LabelSegment: BetterSegmentedControlSegment {
     
     private let paddings: Paddings
     
+    private let minimumScaleFactor: CGFloat?
+    
     // MARK: Lifecycle
     public init(text: String? = nil,
                 paddings: Paddings? = nil,
                 numberOfLines: Int = 1,
+                minimumScaleFactor: CGFloat? = nil,
                 normalBackgroundColor: UIColor? = nil,
                 normalFont: UIFont? = nil,
                 normalTextColor: UIColor? = nil,
@@ -83,6 +86,7 @@ open class LabelSegment: BetterSegmentedControlSegment {
         self.text = text
         self.paddings = paddings ?? DefaultValues.zeroPaddings
         self.numberOfLines = numberOfLines
+        self.minimumScaleFactor = minimumScaleFactor
         self.normalBackgroundColor = normalBackgroundColor ?? DefaultValues.normalBackgroundColor
         self.normalFont = normalFont ?? DefaultValues.normalFont
         self.normalTextColor = normalTextColor ?? DefaultValues.normalTextColor
@@ -127,9 +131,14 @@ open class LabelSegment: BetterSegmentedControlSegment {
         label.paddingRight = paddings.right
         label.paddingBottom = paddings.bottom
         label.paddingLeft = paddings.left
+        label.numberOfLines = numberOfLines
+        
+        if let f = minimumScaleFactor {
+            label.minimumScaleFactor = f
+            label.adjustsFontSizeToFitWidth = true
+        }
         
         label.text = text
-        label.numberOfLines = numberOfLines
         label.backgroundColor = backgroundColor
         label.font = font
         label.textColor = textColor
@@ -145,6 +154,7 @@ public extension LabelSegment {
     class func segments(withTitles titles: [String],
                         paddings: Paddings? = nil,
                         numberOfLines: Int = 1,
+                        minimumScaleFactor: CGFloat? = nil,
                         normalBackgroundColor: UIColor? = nil,
                         normalFont: UIFont? = nil,
                         normalTextColor: UIColor? = nil,
@@ -157,6 +167,7 @@ public extension LabelSegment {
             LabelSegment(text: $0,
                          paddings: paddings,
                          numberOfLines: numberOfLines,
+                         minimumScaleFactor: minimumScaleFactor,
                          normalBackgroundColor: normalBackgroundColor,
                          normalFont: normalFont,
                          normalTextColor: normalTextColor,
